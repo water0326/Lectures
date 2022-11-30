@@ -441,6 +441,8 @@ public class Canvas extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				boolean isNone = true;
+				
 				view_table[0][0].setText("강의실");
 				view_table[0][1].setText("시간");
 				view_table[0][2].setText("교수 이름");
@@ -450,7 +452,24 @@ public class Canvas extends JFrame{
 				int listIdx = 1;
 				
 				for(int i = 0 ; i < rooms.length ; i++) {
+					isNone = true;
 					for(int j = 0 ; j < LectureCount ; j++) {
+						if(rooms[i] == lectures[j].room) {
+							isNone = false;
+							break;
+						}
+					}
+					if(isNone) {
+						view_table[listIdx][0].setText(rooms[i].room);
+						view_table[listIdx][1].setText("");
+						view_table[listIdx][2].setText("");
+						view_table[listIdx][3].setText("");
+						view_table[listIdx][4].setText("");
+						listIdx++;
+						continue;
+					}
+					for(int j = 0 ; j < LectureCount ; j++) {
+						
 						if(rooms[i] == lectures[j].room) {
 							view_table[listIdx][0].setText(rooms[i].room);
 							view_table[listIdx][1].setText(lectures[j].time);
@@ -459,6 +478,7 @@ public class Canvas extends JFrame{
 							view_table[listIdx][4].setText("");
 							listIdx++;
 						}
+						
 					}
 				}
 				for(int i = listIdx ; i < view_table_count ; i++) {
